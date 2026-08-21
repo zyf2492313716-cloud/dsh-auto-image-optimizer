@@ -1,0 +1,4 @@
+# dsh-auto-image-optimizer cordis patch
+- insert:
+    - id: auto-image-optimizer
+      name: '@dsh-local/dsh-auto-image-optimizer'

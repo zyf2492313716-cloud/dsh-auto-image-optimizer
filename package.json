@@ -1,0 +1,30 @@
+{
+  "name": "@dsh-local/dsh-auto-image-optimizer",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "DSH \u667a\u80fd\u56fe\u7247\u4e0a\u4f20\u4f18\u5316\u63d2\u4ef6\uff1a\u81ea\u52a8\u7b49\u6bd4\u7f29\u5c0f\u8d85\u5927 Retina/4K \u622a\u5c4f\uff0c\u675c\u7edd 2000px \u62a5\u9519",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.cjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "auto-image-optimizer.cordis.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "auto-image-optimizer.cordis.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  },
+  "license": "MIT"
+}
