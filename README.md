@@ -36,8 +36,20 @@ DeepSeek Harness (DSH) 客户端大图自动等比缩放与附件限制优化插
 
 ## 系统要求
 
-- DeepSeek Harness (`dsh`) 运行环境
-- Node.js ≥ 20
+- DeepSeek Harness (`dsh`) `>=0.1.2`（已在 `0.2.1-rc.5` 验证）
+- Node.js `^22.19 || >=24`
+- macOS / Linux / Windows；Profile：`web`
+
+## 权限与边界
+
+| 权限 | 用途 | 范围 |
+|---|---|---|
+| 文件 | 无 | 只处理浏览器内存中的图片 Blob，不读写本地文件 |
+| 网络 | 无 | 不发起网络请求 |
+| 命令 | 无 | 不执行子进程或 Shell |
+| 凭据 | 无 | 不读取 API Key、Cookie 或任何凭据 |
+
+插件以浏览器端下采样为主；服务端仅在附件服务暴露可写 `imageLimits` 时尝试把 `maxImageDimension` 放宽到 4096px（属性冻结时跳过），不修改 DSH 核心、官方包或任何配置文件。
 
 ---
 
