@@ -90,6 +90,13 @@ cd dsh-auto-image-optimizer
 
 ---
 
+## 验证状态
+
+- **已验证**：manifest/Bundle Patch 解析、客户端粘贴缩放测试（4000×3000 → 1999×1499）、DSH `0.2.1-rc.5` 一次性 Profile 安装与 bundle 加载。
+- **未验证**：真实桌面浏览器中的手工粘贴、其他 DSH 版本、卸载/回滚。
+
+---
+
 ## License
 
 MIT
