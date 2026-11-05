@@ -36,7 +36,7 @@ DeepSeek Harness (DSH) 客户端大图自动等比缩放与附件限制优化插
 
 ## 系统要求
 
-- DeepSeek Harness (`dsh`) `>=0.1.2`（已在 `0.2.1-rc.5` 验证）
+- DeepSeek Harness (`dsh`) `>=0.1.2`；逐版本兼容记录与取证方式见下面「验收状态」
 - Node.js `^22.19 || >=24`
 - macOS / Linux / Windows；Profile：`web`
 
@@ -93,7 +93,20 @@ cd dsh-auto-image-optimizer
 ## 验证状态
 
 - **已验证**：manifest/Bundle Patch 解析、客户端粘贴缩放测试（4000×3000 → 1999×1499）、DSH `0.2.1-rc.5` 一次性 Profile 安装与 bundle 加载。
-- **未验证**：真实桌面浏览器中的手工粘贴、其他 DSH 版本、卸载/回滚。
+- **未验证**：真实桌面浏览器中的手工粘贴、卸载/回滚。
+
+### `dsh.compatibility.dshReleases` 各行的证据
+
+| 版本 | 证据级别 | 依据 |
+| --- | --- | --- |
+| `0.2.1-rc.5` | 运行验收 | 一次性 Profile 安装 + bundle 加载通过；本机宿主即 `0.2.1-rc.5` |
+| `0.2.2-alpha.2` | 契约核对 | 见下 |
+| `0.2.2-alpha.3` | 契约核对 | 见下 |
+| `0.2.2-rc.1` | 契约核对 | 见下 |
+
+契约核对的做法：取 `@deepseek-ai/dsh@<版本>` 在 npm 上的固定发布物闭包，逐个解包检查本插件用到的宿主接口是否仍存在——`attachments`、`imageLimits`、`maxImageDimension`（本插件只把 `imageLimits.maxImageDimension` 抬到 4096）与扩展点 `settings.general.item`、`window.__ModuleLoader__`。四个版本结果一致：`maxImageDimension` 恒在 `@deepseek-ai/dsh-tool-fs` 与 `dsh-tool-cordis`，`attachments` 的归属包在四个版本间完全相同，没有任何一个 token 消失或改名（只有新增引用方）。
+
+这一级证据**不**等价于在新版本上做过的安装/启动/卸载验收。之所以没做：`npm i @deepseek-ai/dsh@0.2.2-rc.1` 在匿名 npm 下无法解析——依赖闭包里 `@deepseek-ai/dsh-desktop-host@0.2.1-rc.5`、`@deepseek-ai/cordis`、`@deepseek-ai/cordis-plugin-*`、`@deepseek-ai/schemastery`、`@deepseek-ai/dsh-official-bundles`、`@deepseek-ai/dsh-personalized-recommendations` 等发布物对公网返回 404，装不起来自然跑不了 CLI 的安装/卸载。有内部源权限的人可以补这一级证据。
 
 ---
 
